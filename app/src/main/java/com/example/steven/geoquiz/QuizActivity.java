@@ -2,6 +2,7 @@ package com.example.steven.geoquiz;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private TextView mQuestionTextView;
+    private static final String sLogTag = "QuizActivity";
 
     private TFQuestion[] mQuestionBank = new TFQuestion[] {
             new TFQuestion(R.string.question_australia, true),
@@ -33,6 +35,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("mQuestionIndex",mQuestionIndex);
+        Log.d(sLogTag, "Saved Instance State");
     }
 
     @Override
@@ -44,9 +47,13 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton = (Button) findViewById(R.id.false_button);
         mNextButton = (Button) findViewById(R.id.next_button);
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+        Log.d(sLogTag,"Ran onCreate()");
 
-        if(savedInstanceState != null && savedInstanceState.containsKey("mQuestionIndex") )
+        if(savedInstanceState != null && savedInstanceState.containsKey("mQuestionIndex") ) {
             mQuestionIndex = savedInstanceState.getInt("mQuestionIndex");
+            Log.d(sLogTag,"Loaded Instance State");
+        }
+
 
         updateQuestionText();
 
